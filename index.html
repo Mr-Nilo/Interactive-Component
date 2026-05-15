@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Passenger Counter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <article class="card">
+
+      <!-- Zone 1 — Identity -->
+      <header class="card-header">
+        <h1>Passenger Counter</h1>
+        <p>Track boarding by category</p>
+      </header>
+
+      <!-- Zone 2 — Hero stat (the answer the conductor needs) -->
+      <section class="hero" id="hero" aria-live="polite">
+        <div class="hero-value" id="totalCount">0</div>
+        <div class="hero-label">Total on board</div>
+        <div class="hero-status" id="totalStatus">36 general · 4 reserved free</div>
+      </section>
+
+      <!-- Zone 3 — Settings -->
+      <section class="section" aria-label="Bus configuration">
+        <div class="row">
+          <div class="row-info">
+            <span class="row-label">Bus capacity</span>
+            <span class="row-hint">Up to 80 seats</span>
+          </div>
+          <div class="stepper" role="group" aria-label="Adjust bus capacity">
+            <button class="stepper-btn" id="capacityDec" aria-label="Decrease capacity">−</button>
+            <input type="number" class="stepper-value stepper-input" id="capacityValue"
+                   min="10" max="80" value="40" aria-label="Bus capacity value" />
+            <button class="stepper-btn" id="capacityInc" aria-label="Increase capacity">+</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-info">
+            <span class="row-label">Reserved seats</span>
+            <span class="row-hint">For differently-abled</span>
+          </div>
+          <div class="stepper" role="group" aria-label="Adjust reserved seats">
+            <button class="stepper-btn" id="reservedDec" aria-label="Decrease reserved seats">−</button>
+            <input type="number" class="stepper-value stepper-input" id="reservedValue"
+                   min="0" max="12" value="4" aria-label="Reserved seats value" />
+            <button class="stepper-btn" id="reservedInc" aria-label="Increase reserved seats">+</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Zone 4 — Counters (generated from CATEGORIES) -->
+      <section class="section counters" aria-label="Passenger categories"></section>
+
+      <!-- Zone 5 — Footer (actions + auto-save) -->
+      <footer class="card-footer">
+        <div class="footer-actions">
+          <div class="footer-group">
+            <button id="undoBtn"    class="btn btn-ghost" aria-label="Undo last action">↶ Undo</button>
+            <button id="resetBtn"   class="btn btn-ghost" aria-label="Reset all counters to zero">Reset</button>
+            <button id="historyBtn" class="btn btn-ghost" aria-label="Open history" aria-expanded="false" aria-controls="historyModal">History</button>
+          </div>
+          <button id="saveBtn" class="btn btn-primary" aria-label="Save current count to history">Save</button>
+        </div>
+        <div class="auto-save" aria-live="polite">
+          <span class="dot" aria-hidden="true"></span>
+          <span id="saveStatus">Auto-saved just now</span>
+        </div>
+      </footer>
+
+    </article>
+
+    <!-- History dialog (lives outside the card; opens as overlay) -->
+    <dialog id="historyModal" class="modal" aria-labelledby="historyTitle">
+      <header class="modal-header">
+        <h2 id="historyTitle">History</h2>
+        <button id="historyClose" class="modal-close" aria-label="Close history">✕</button>
+      </header>
+      <div class="modal-body">
+        <ul id="historyList" class="history-list"></ul>
+        <p id="emptyHistory" class="empty">No saved entries yet. Press Save to record a checkpoint.</p>
+      </div>
+    </dialog>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
